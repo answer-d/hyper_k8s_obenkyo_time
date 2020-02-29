@@ -4,7 +4,7 @@
 
 ## httpdをリバースプロキシにするパターン
 
-- [このブランチ](./tree/reverse_proxy/)
+- [このブランチ](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/reverse_proxy)
 - やってみたものの…httpdでしかできない特別な機能があるとかじゃなければ、Ingressでいいのでは？って感じ
 
 ## http-tomcat間をAJPで連携するパターン
