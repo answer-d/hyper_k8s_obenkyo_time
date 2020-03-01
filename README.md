@@ -4,12 +4,12 @@
 
 ## httpdをリバースプロキシにするパターン
 
-- [このブランチ](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/reverse_proxy)
+- [このタグ(reverse_proxy)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/reverse_proxy)
 - やってみたものの…httpdでしかできない特別な機能があるとかじゃなければ、Ingressでいいのでは？って感じ
 
 ## http-tomcat間をAJPで連携するパターン
 
-- [このブランチ](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ajp_connect)
+- [このタグ(ajp_connect)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ajp_connect)
 - やってみたものの…AJPで連携する必要はないかも…
     - マイクロサービスの思想的にPod間通信は多分RESTにした方が良いだろうし…
     - もしくはプロキシ(サービスメッシュとかそんな感じだよな？)
@@ -19,10 +19,48 @@
 - そもそもhttpdでL7LBの機能を実現したいだけなら、httpdコンテナじゃなくてIngress使えばいいんじゃね？と思った
 - のでやってみる
 
-## nginx Ingressパターン
+## Ingressパターン
 
-- Todo
-- nginxでもAJPモジュールあるらしい？
+### Nginx Ingress Controller導入
+
+- Docker for MacなのでNginx Ingress Controllerを入れる、公式サイトに従ってやる
+    - <https://kubernetes.github.io/ingress-nginx/deploy/>
+- コマンド2発！めっちゃ簡単！！！！！！！！！！！
+
+```console
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/cloud-generic.yaml
+```
+
+- namespace `ingress-nginx` にいろいろとできてる
+
+```console
+# kubectl get all -n ingress-nginx
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/nginx-ingress-controller-7fcf8df75d-ch9q4   1/1     Running   0          78s
+
+
+NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+service/ingress-nginx   LoadBalancer   10.103.47.200   localhost     80:32605/TCP,443:30149/TCP   73s
+
+
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-ingress-controller   1/1     1            1           78s
+
+NAME                                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-ingress-controller-7fcf8df75d   1         1         1       78s
+```
+
+### 実装
+
+- [このタグ(ingress-simple)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ingress-simple)
+
+## おまけ
+
+- ちなみにNginxでもAJPモジュールあるらしい
+    - けど上述の理由でAJPを使う理由があまり見えないし、めんどいのでもういいや！
+
+## おわり
 
 # Refs
 
@@ -37,6 +75,10 @@
 ### ConfigMapで1ファイルだけマウントしたい
 
 - <https://stackoverflow.com/questions/44325048/kubernetes-configmap-only-one-file>
+
+### Nginx Ingress Controller
+
+- <https://kubernetes.github.io/ingress-nginx/deploy/>
 
 ## httpd,tomcat関連
 
