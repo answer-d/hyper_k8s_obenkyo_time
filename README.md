@@ -9,8 +9,15 @@
 
 ## http-tomcat間をAJPで連携するパターン
 
-- ToDo
-- でもまぁマイクロサービスの思想的に違うのではないか…わざわざAJPを介する意味が無い気がする
+- [このブランチ](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ajp_connect)
+- やってみたものの…AJPで連携する必要はないかも…
+    - マイクロサービスの思想的にPod間通信は多分RESTにした方が良いだろうし…
+    - もしくはプロキシ(サービスメッシュとかそんな感じだよな？)
+
+# ていうか
+
+- そもそもhttpdでL7LBの機能を実現したいだけなら、httpdコンテナじゃなくてIngress使えばいいんじゃね？と思った
+- のでやってみる
 
 ## nginx Ingressパターン
 
@@ -41,3 +48,5 @@
 
 - <https://teratail.com/questions/79438>
 - <http://sakusaku-techs.com/apache-tomcat/apche-connect/>
+- 地味にハマったんだけど、 `server.xml` に `address="0.0.0.0"` を書かないとlocalhostからの通信しか許可されなかった
+    - コンテナ入って `ss -ln` とかやると分かる
