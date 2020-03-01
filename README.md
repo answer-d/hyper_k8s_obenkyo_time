@@ -4,12 +4,12 @@
 
 ## httpdをリバースプロキシにするパターン
 
-- [このタグ(reverse_proxy)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/reverse_proxy)
+- [このブランチ(reverse_proxy)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/reverse_proxy)
 - やってみたものの…Ingressでいいのでは？って感じ
 
 ## httpd-tomcat間をAJPで連携するパターン
 
-- [このタグ(ajp_connect)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ajp_connect)
+- [このブランチ(ajp_connect)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ajp_connect)
 - やってみたものの…AJPで連携する必要は別にないかも…？
     - マイクロサービスの思想的にPod間通信は多分RESTにした方が良いだろうし…
     - もしくはプロキシ(サービスメッシュとかそんな感じだよな？)
@@ -53,7 +53,7 @@ replicaset.apps/nginx-ingress-controller-7fcf8df75d   1         1         1     
 
 ### 実装
 
-- [このタグ(ingress-simple)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ingress-simple)
+- [このブランチ(ingress-simple)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ingress-simple)
 - Ingress使えばL7LBの部分が抽象化されるし、設定もhttpdより簡単、パフォーマンスも良い(らしい)
     - httpdでなければいけない特別な何かをしていなければこっち使うのがやっぱり良さそう
 
