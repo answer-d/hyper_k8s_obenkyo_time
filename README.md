@@ -5,12 +5,12 @@
 ## httpdをリバースプロキシにするパターン
 
 - [このタグ(reverse_proxy)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/reverse_proxy)
-- やってみたものの…httpdでしかできない特別な機能があるとかじゃなければ、Ingressでいいのでは？って感じ
+- やってみたものの…Ingressでいいのでは？って感じ
 
-## http-tomcat間をAJPで連携するパターン
+## httpd-tomcat間をAJPで連携するパターン
 
 - [このタグ(ajp_connect)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ajp_connect)
-- やってみたものの…AJPで連携する必要はないかも…
+- やってみたものの…AJPで連携する必要は別にないかも…？
     - マイクロサービスの思想的にPod間通信は多分RESTにした方が良いだろうし…
     - もしくはプロキシ(サービスメッシュとかそんな感じだよな？)
 
@@ -54,6 +54,8 @@ replicaset.apps/nginx-ingress-controller-7fcf8df75d   1         1         1     
 ### 実装
 
 - [このタグ(ingress-simple)](https://github.com/answer-d/hyper_k8s_obenkyo_time/tree/ingress-simple)
+- Ingress使えばL7LBの部分が抽象化されるし、設定もhttpdより簡単、パフォーマンスも良い(らしい)
+    - httpdでなければいけない特別な何かをしていなければこっち使うのがやっぱり良さそう
 
 ## おまけ
 
@@ -79,6 +81,10 @@ replicaset.apps/nginx-ingress-controller-7fcf8df75d   1         1         1     
 ### Nginx Ingress Controller
 
 - <https://kubernetes.github.io/ingress-nginx/deploy/>
+
+### Ingress公式ドキュメント
+
+- <https://kubernetes.io/ja/docs/concepts/services-networking/ingress/>
 
 ## httpd,tomcat関連
 
